@@ -21,10 +21,7 @@ export default defineMcpTool({
 
     const output = { bmi: Math.round(bmi * 100) / 100, category }
     return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify(output),
-      }],
+      content: [{ type: 'text', text: JSON.stringify(output) }],
       structuredContent: output,
     }
   },

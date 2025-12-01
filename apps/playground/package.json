@@ -14,7 +14,9 @@
     "build": "nuxi build",
     "generate": "nuxi generate",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "eval": "evalite",
+    "eval:ui": "evalite --ui"
   },
   "dependencies": {
     "@nuxtjs/mcp-toolkit": "workspace:*",
@@ -22,7 +24,11 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@ai-sdk/mcp": "^0.0.8",
+    "@ai-sdk/openai": "^1.0.0",
     "@nuxt/eslint-config": "^1.10.0",
-    "eslint": "^9.39.1"
+    "ai": "^4.0.0",
+    "eslint": "^9.39.1",
+    "evalite": "^1.0.0-beta.13"
   }
 }

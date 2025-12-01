@@ -94,21 +94,12 @@ export function registerToolFromDefinition<
  *   name: 'calculate-bmi',
  *   title: 'BMI Calculator',
  *   description: 'Calculate Body Mass Index',
- *   inputSchema: {
- *     weightKg: z.number(),
- *     heightM: z.number()
- *   },
+ *   inputSchema: { weightKg: z.number(), heightM: z.number() },
  *   outputSchema: { bmi: z.number() },
  *   handler: async ({ weightKg, heightM }) => {
  *     const output = { bmi: weightKg / (heightM * heightM) }
- *     return {
- *       content: [{
- *         type: 'text',
- *         text: JSON.stringify(output)
- *       }],
- *       structuredContent: output
- *     }
- *   }
+ *     return { content: [{ type: 'text', text: JSON.stringify(output) }], structuredContent: output }
+ *   },
  * })
  * ```
  */

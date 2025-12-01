@@ -8,10 +8,7 @@ export default defineMcpTool({
   },
   handler: async ({ message }) => {
     return {
-      content: [{
-        type: 'text',
-        text: `Echo: ${message}`,
-      }],
+      content: [{ type: 'text', text: `Echo: ${message}` }],
     }
   },
 })

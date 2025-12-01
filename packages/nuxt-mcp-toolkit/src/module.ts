@@ -4,6 +4,7 @@ import { loadAllDefinitions } from './runtime/server/mcp/loaders'
 import { defaultMcpConfig } from './runtime/server/mcp/config'
 import { ROUTES } from './runtime/server/mcp/constants'
 import { addDevToolsCustomTabs } from './runtime/server/mcp/devtools'
+import { addEvalsDevToolsTab } from './runtime/server/mcp/devtools/evals'
 import { name, version } from '../package.json'
 
 const log = logger.withTag('@nuxtjs/mcp-toolkit')
@@ -11,6 +12,24 @@ const log = logger.withTag('@nuxtjs/mcp-toolkit')
 export const { resolve } = createResolver(import.meta.url)
 
 export type * from './runtime/server/types'
+
+export interface EvaliteOptions {
+  /**
+   * Enable evalite integration
+   * @default true
+   */
+  enabled?: boolean
+  /**
+   * MCP server URL for evals
+   * @default 'http://localhost:3000/mcp' (uses dev server port)
+   */
+  mcpUrl?: string
+  /**
+   * Port for evalite UI server
+   * @default 5173
+   */
+  port?: number
+}
 
 export interface ModuleOptions {
   /**
@@ -44,6 +63,11 @@ export interface ModuleOptions {
    * @default 'mcp'
    */
   dir?: string
+  /**
+   * Evalite configuration for running evals on MCP tools
+   * Use this to customize the MCP URL or Evalite UI port
+   */
+  evalite?: EvaliteOptions
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -155,6 +179,10 @@ export default defineNuxtModule<ModuleOptions>({
         name: 'defineMcpHandler',
         from: resolver.resolve('runtime/server/mcp/definitions'),
       },
+      {
+        name: 'defineMcpEval',
+        from: resolver.resolve('runtime/server/mcp/definitions'),
+      },
     ])
 
     addServerHandler({
@@ -163,5 +191,6 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     addDevToolsCustomTabs(nuxt, options)
+    addEvalsDevToolsTab(nuxt, options)
   },
 })

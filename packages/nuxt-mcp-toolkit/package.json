@@ -17,14 +17,17 @@
     ".": {
       "types": "./dist/types.d.mts",
       "import": "./dist/module.mjs"
+    },
+    "./eval": {
+      "types": "./dist/runtime/eval/index.d.ts",
+      "import": "./dist/runtime/eval/index.js"
     }
   },
   "main": "./dist/module.mjs",
   "typesVersions": {
     "*": {
-      ".": [
-        "./dist/types.d.mts"
-      ]
+      ".": ["./dist/types.d.mts"],
+      "eval": ["./dist/runtime/eval/index.d.ts"]
     }
   },
   "files": [
@@ -54,12 +57,16 @@
     "tinyglobby": "^0.2.15"
   },
   "peerDependencies": {
-    "zod": "^3.25.76"
+    "zod": "^3.25.76",
+    "evalite": "^1.0.0-beta.13",
+    "@ai-sdk/mcp": "^0.0.8",
+    "ai": "^4.0.0 || ^5.0.0 || ^6.0.0"
   },
   "peerDependenciesMeta": {
-    "zod": {
-      "optional": false
-    }
+    "zod": { "optional": false },
+    "evalite": { "optional": true },
+    "@ai-sdk/mcp": { "optional": true },
+    "ai": { "optional": true }
   },
   "devDependencies": {
     "@nuxt/devtools": "^3.1.0",
