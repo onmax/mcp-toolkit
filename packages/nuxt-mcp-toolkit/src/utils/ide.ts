@@ -30,12 +30,15 @@ export function detectIDE(): IDE | null {
 
   // Fallback: walk up the process tree to find Cursor or VS Code
   try {
+    const table = execSync('ps -A -o pid=,ppid=,comm=', { stdio: ['pipe', 'pipe', 'ignore'], maxBuffer: Infinity }).toString().split('\n')
     let pid = process.ppid
     for (let i = 0; i < 10 && pid > 1; i++) {
-      const name = execSync(`ps -o comm= -p ${pid}`, { stdio: ['pipe', 'pipe', 'ignore'] }).toString().toLowerCase()
+      const match = table.find(line => Number.parseInt(line) === pid)?.match(/^\s*(\d+)\s+(\d+)\s+(\S.*)$/)
+      if (!match) break
+      const name = match[3]!.toLowerCase()
       if (name.includes('cursor')) return 'cursor'
       if (name.includes('code helper') || name.includes('code.app')) return 'vscode'
-      pid = Number.parseInt(execSync(`ps -o ppid= -p ${pid}`, { stdio: ['pipe', 'pipe', 'ignore'] }).toString().trim())
+      pid = Number(match[2])
     }
   }
   catch {
